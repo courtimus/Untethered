@@ -1,11 +1,15 @@
-# PlexMusic
+# Untethered
 
-PlexMusic is an Android client for listening to music from a personal Plex Media Server. It provides a focused library browser, full playback controls, persistent downloads, Google Cast support, and a Media3 playback service that can be used by Android Auto and other media controls.
+Untethered is an Android client for listening to music from a personal Plex Media Server. It provides a focused library browser, full playback controls, persistent downloads, Google Cast support, and a Media3 playback service that can be used by Android Auto and other media controls. The app also includes a multi-source setup experience for Plex, Jellyfin, and a local music folder.
 
 ## Features
 
 - Sign in with the Plex PIN authentication flow.
 - Discover Plex servers and choose a music library.
+- Choose Plex, Jellyfin, and/or Local Library during first-run setup.
+- Reopen source setup and folder selection through **Manage Library**.
+- Choose a local music root and view the recommended artist/album artwork folder structure.
+- See source badges in the catalog UI so the provider identity has a consistent place in mixed-source browsing.
 - Remember the selected library and refresh its server connection details.
 - Browse artists, albums, songs, and audio playlists.
 - Open artist, album, and playlist details and start playback from any track.
@@ -39,6 +43,9 @@ It locates the JDK, Gradle, and Android SDK there and redirects build outputs ou
 ### Runtime
 
 - An accessible Plex Media Server with at least one music library.
+- A reachable Jellyfin server with a user account and at least one music view.
+- For Local Library, grant the app read access to a folder containing supported audio files. The app scans MP3, M4A, MP4, FLAC, OGG, OPUS, WAV, and AAC files through Android's Storage Access Framework.
+- Jellyfin and local-library setup details are stored separately from Plex credentials, so configuring one source does not overwrite another source's settings.
 - Network access from the Android device to a Plex server connection URI.
 - Google Play services on the device for Google Cast discovery and playback.
 - A Cast receiver that can reach the media URLs provided by the Plex server.
@@ -56,7 +63,7 @@ From the project root, build the debug APK with:
 The script prints the generated APK path. With the default workspace toolchain, the output is:
 
 ```text
-%LOCALAPPDATA%\AndroidToolchain\plexmusic-build\app\outputs\apk\debug\app-debug.apk
+%LOCALAPPDATA%\AndroidToolchain\untethered-build\app\outputs\apk\debug\app-debug.apk
 ```
 
 To install a built APK on a connected device:
@@ -69,9 +76,9 @@ The app requests notification access so Android can display the media playback n
 
 ## How It Works
 
-PlexMusic uses the Plex API to authenticate, discover servers, load music metadata, and resolve stream URLs. The selected library and a short-lived catalog cache are stored locally so the app can start browsing while metadata is refreshed.
+Untethered uses the Plex API to authenticate, discover servers, load music metadata, and resolve stream URLs. The selected library and a short-lived catalog cache are stored locally so the app can start browsing while metadata is refreshed.
 
-Playback is owned by `PlexMusicMediaLibraryService`, which hosts a single Media3 player shared by the phone UI, Android Auto, and system media controls. Streaming data is kept in a bounded cache. Explicit downloads use a separate persistent cache and remain available until they are removed from the app.
+Playback is owned by `UntetheredMediaLibraryService`, which hosts a single Media3 player shared by the phone UI, Android Auto, and system media controls. Streaming data is kept in a bounded cache. Explicit downloads use a separate persistent cache and remain available until they are removed from the app.
 
 ## Troubleshooting
 
@@ -85,7 +92,7 @@ If a library cannot be loaded or a track will not play:
 ## Project Structure
 
 ```text
-app/src/main/java/com/dudemeister/plexmusic/
+app/src/main/java/com/untethered/
 |-- cast/       Google Cast integration
 |-- data/       Library state, persistence, and catalog operations
 |-- model/      Plex and playback data models
@@ -98,6 +105,6 @@ scripts/
 
 ## License
 
-PlexMusic is licensed under the MIT License. The license applies to this project's original source code. AndroidX, Kotlin, Jetpack Compose, Google Cast, Coil, OkHttp, Media3, and other dependencies remain under their respective licenses.
+Untethered is licensed under the MIT License. The license applies to this project's original source code. AndroidX, Kotlin, Jetpack Compose, Google Cast, Coil, OkHttp, Media3, and other dependencies remain under their respective licenses.
 
-PlexMusic is an independent client and is not affiliated with or endorsed by Plex, Inc. Plex trademarks, APIs, and media content are not covered by this license.
+Untethered is an independent client and is not affiliated with or endorsed by Plex, Inc. Plex trademarks, APIs, and media content are not covered by this license.

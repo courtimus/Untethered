@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "PlexMusic"
+rootProject.name = "Untethered"
 include(":app")

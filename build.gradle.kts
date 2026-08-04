@@ -4,7 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.21" apply false
 }
 
-val externalBuildDir = providers.environmentVariable("PLEXMUSIC_BUILD_DIR")
+val externalBuildDir = providers.environmentVariable("UNTETHERED_BUILD_DIR")
 
 allprojects {
     externalBuildDir.orNull?.let { buildRoot ->
